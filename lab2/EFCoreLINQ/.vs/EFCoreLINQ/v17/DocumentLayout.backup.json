@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|c:\\users\\konstantin\\desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0440\u043F\u0431\u0434\u0438\u0441\\rpbdis\\lab2\\efcorelinq\\efcorelinq\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|solutionrelative:efcorelinq\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|c:\\users\\konstantin\\desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0440\u043F\u0431\u0434\u0438\u0441\\rpbdis\\lab2\\efcorelinq\\efcorelinq\\data\\marriageagencycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|solutionrelative:efcorelinq\\data\\marriageagencycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|c:\\users\\konstantin\\desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0440\u043F\u0431\u0434\u0438\u0441\\rpbdis\\lab2\\efcorelinq\\efcorelinq\\models\\additionalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|solutionrelative:efcorelinq\\models\\additionalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|c:\\users\\konstantin\\desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0440\u043F\u0431\u0434\u0438\u0441\\rpbdis\\lab2\\efcorelinq\\efcorelinq\\queries\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|solutionrelative:efcorelinq\\queries\\queries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|c:\\users\\konstantin\\desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0440\u043F\u0431\u0434\u0438\u0441\\rpbdis\\lab2\\efcorelinq\\efcorelinq\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|solutionrelative:efcorelinq\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|c:\\users\\konstantin\\desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0440\u043F\u0431\u0434\u0438\u0441\\rpbdis\\lab2\\efcorelinq\\efcorelinq\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|solutionrelative:efcorelinq\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|c:\\users\\konstantin\\desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0440\u043F\u0431\u0434\u0438\u0441\\rpbdis\\lab2\\efcorelinq\\efcorelinq\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6968309E-F2DD-4241-B700-0F6F71030C29}|EFCoreLINQ\\EFCoreLINQ.csproj|solutionrelative:efcorelinq\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +46,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "AdditionalService.cs",
+              "DocumentMoniker": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Models\\AdditionalService.cs",
+              "RelativeDocumentMoniker": "EFCoreLINQ\\Models\\AdditionalService.cs",
+              "ToolTip": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Models\\AdditionalService.cs",
+              "RelativeToolTip": "EFCoreLINQ\\Models\\AdditionalService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-24T14:38:57.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\appsettings.json",
+              "RelativeDocumentMoniker": "EFCoreLINQ\\appsettings.json",
+              "ToolTip": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\appsettings.json",
+              "RelativeToolTip": "EFCoreLINQ\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-24T14:29:49.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MarriageAgencyContext.cs",
+              "DocumentMoniker": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Data\\MarriageAgencyContext.cs",
+              "RelativeDocumentMoniker": "EFCoreLINQ\\Data\\MarriageAgencyContext.cs",
+              "ToolTip": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Data\\MarriageAgencyContext.cs",
+              "RelativeToolTip": "EFCoreLINQ\\Data\\MarriageAgencyContext.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAADwvzwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-24T14:29:27.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Client.cs",
               "DocumentMoniker": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Models\\Client.cs",
               "RelativeDocumentMoniker": "EFCoreLINQ\\Models\\Client.cs",
@@ -47,26 +98,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Queries.cs",
               "DocumentMoniker": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Queries\\Queries.cs",
               "RelativeDocumentMoniker": "EFCoreLINQ\\Queries\\Queries.cs",
               "ToolTip": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Queries\\Queries.cs",
               "RelativeToolTip": "EFCoreLINQ\\Queries\\Queries.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAQwHwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-21T16:38:53.286Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Program.cs",
               "RelativeDocumentMoniker": "EFCoreLINQ\\Program.cs",
-              "ToolTip": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Program.cs*",
-              "RelativeToolTip": "EFCoreLINQ\\Program.cs*",
-              "ViewState": "AgIAAG4BAAAAAAAAAAAgwHwBAAA8AAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Konstantin\\Desktop\\3\u043A\u0443\u0440\u0441(5\u0441\u0435\u043C)\\\u0420\u041F\u0411\u0414\u0418\u0421\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\Program.cs",
+              "RelativeToolTip": "EFCoreLINQ\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-21T16:37:22.38Z",
               "EditorCaption": ""

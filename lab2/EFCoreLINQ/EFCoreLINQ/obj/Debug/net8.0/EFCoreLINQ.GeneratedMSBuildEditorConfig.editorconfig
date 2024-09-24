@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EFCoreLINQ
-build_property.ProjectDir = C:\Users\Konstantin\Desktop\3курс(5сем)\РПБДИС\лаб2\lab2\EFCoreLINQ\EFCoreLINQ\
+build_property.ProjectDir = C:\Users\Konstantin\Desktop\3курс(5сем)\РПБДИС\RPBDIS\lab2\EFCoreLINQ\EFCoreLINQ\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

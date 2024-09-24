@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\лаб2\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj": {}
+    "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\лаб2\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj": {
+    "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\лаб2\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj",
+        "projectUniqueName": "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj",
         "projectName": "EFCoreLINQ",
-        "projectPath": "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\лаб2\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj",
+        "projectPath": "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\EFCoreLINQ.csproj",
         "packagesPath": "C:\\Users\\Konstantin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\лаб2\\lab2\\EFCoreLINQ\\EFCoreLINQ\\obj\\",
+        "outputPath": "C:\\Users\\Konstantin\\Desktop\\3курс(5сем)\\РПБДИС\\RPBDIS\\lab2\\EFCoreLINQ\\EFCoreLINQ\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Konstantin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,6 +59,26 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.UserSecrets": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
@@ -77,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

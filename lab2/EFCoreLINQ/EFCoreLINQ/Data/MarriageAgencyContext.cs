@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using EFCoreLINQ.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EFCoreLINQ.Data;
 
@@ -41,7 +42,28 @@ public partial class MarriageAgencyContext : DbContext
     public virtual DbSet<ZodiacSign> ZodiacSigns { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=HOME-PC;Database=MarriageAgency; Trusted_Connection =True; TrustServerCertificate=True");
+    {
+        ConfigurationBuilder builder = new();
+
+        ///Установка пути к текущему каталогу
+        builder.SetBasePath(Directory.GetCurrentDirectory());
+        // получаем конфигурацию из файла appsettings.json
+        builder.AddJsonFile("appsettings.json");
+        // создаем конфигурацию
+        IConfigurationRoot configuration = builder.AddUserSecrets<Program>().Build();
+
+        /// Получаем строку подключения
+        string connectionString = "";
+
+        // Для локального SQL Server
+        connectionString = configuration.GetConnectionString("SQLConnection");
+
+        /// Задание опций подключения
+        _ = optionsBuilder
+            .UseSqlServer(connectionString)
+            .Options;
+        optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message));
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
