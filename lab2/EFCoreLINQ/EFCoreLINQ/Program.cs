@@ -9,19 +9,19 @@ var queries = new Queries(context);
 while (true)
 {
     Console.Clear();
-    Console.WriteLine("|=================================================================================================================|");
-    Console.WriteLine("|                                                  Меню                                                           |");
-    Console.WriteLine("| Показать всех клиентов - Выборка всех данных из таблицы Client.                                                 |");
-    Console.WriteLine("| Фильтрация клиентов по профессии - Выборка клиентов, отфильтрованных по профессии.                              |");
-    Console.WriteLine("| Группировка клиентов по профессии - Группировка клиентов по профессии и вывод итоговых данных.                  |");
-    Console.WriteLine("| Выборка услуг клиентов - Выборка данных из таблиц Service и Client, связанных отношением один-ко-многим.        |");
-    Console.WriteLine("| Фильтрация клиентов по национальности - Выборка клиентов по национальности из связанных таблиц.                 |");
-    Console.WriteLine("| Добавить нового клиента - Вставка данных в таблицу Client.                                                      |");
-    Console.WriteLine("| Добавить новую услугу - Вставка данных в таблицу Service.                                                       |");
-    Console.WriteLine("| Удалить клиента - Удаление данных из таблицы Client по имени.                                                   |");
-    Console.WriteLine("| Удалить услугу - Удаление данных из таблицы Service по ID.                                                      |");
-    Console.WriteLine("| Обновить записи клиентов - Обновление записей в таблице Client на основе данных из таблицы PhysicalAttribute.   |");
-    Console.WriteLine("|=================================================================================================================|");
+    Console.WriteLine("|===================================================================================================================|");
+    Console.WriteLine("|                                                    Меню                                                           |");
+    Console.WriteLine("|1. Показать всех клиентов - Выборка всех данных из таблицы Client.                                                 |");
+    Console.WriteLine("|2. Фильтрация клиентов по профессии - Выборка клиентов, отфильтрованных по профессии.                              |");
+    Console.WriteLine("|3. Группировка клиентов по профессии - Группировка клиентов по профессии и вывод итоговых данных.                  |");
+    Console.WriteLine("|4. Выборка услуг клиентов - Выборка данных из таблиц Service и Client, связанных отношением один-ко-многим.        |");
+    Console.WriteLine("|5. Фильтрация клиентов по национальности - Выборка клиентов по национальности из связанных таблиц.                 |");
+    Console.WriteLine("|6. Добавить нового клиента - Вставка данных в таблицу Client.                                                      |");
+    Console.WriteLine("|7. Добавить новую услугу - Вставка данных в таблицу Service.                                                       |");
+    Console.WriteLine("|8. Удалить клиента - Удаление данных из таблицы Client по имени.                                                   |");
+    Console.WriteLine("|9. Удалить услугу - Удаление данных из таблицы Service по ID.                                                      |");
+    Console.WriteLine("|10. Обновить записи клиентов - Обновление записей в таблице Client на основе данных из таблицы PhysicalAttribute.  |");
+    Console.WriteLine("|===================================================================================================================|");
     Console.Write("Выберите опцию: ");
     var option = Console.ReadLine();
 
@@ -57,6 +57,7 @@ while (true)
         case "10":
             UpdateClientRecords(queries);
             break;
+
         case "0":
             return;
         default:
@@ -65,7 +66,8 @@ while (true)
     }
 }
 
-void ShowAllClients(Queries service)
+// Метод для показа всех клиентов
+void ShowAllClients(Queries queries)
 {
     Console.Clear();
     Console.Write("Введите количество клиентов для показа: ");
@@ -75,14 +77,15 @@ void ShowAllClients(Queries service)
         return;
     }
 
-    var clients = service.GetAllClients(recordsNumber);
+    var clients = queries.GetAllClients(recordsNumber);
     PrintClientDetails(clients);
 
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
 
-void FilterClients(Queries service)
+// Метод для фильтрации клиентов по профессии
+void FilterClients(Queries queries)
 {
     Console.Clear();
     Console.Write("Введите профессию для фильтрации (например, Программист): ");
@@ -103,14 +106,15 @@ void FilterClients(Queries service)
         return;
     }
 
-    var filteredClients = service.FilterClientsByProfession(professionFilter, recordsNumber);
+    var filteredClients = queries.FilterClientsByProfession(professionFilter, recordsNumber);
     PrintClientDetails(filteredClients);
 
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
 
-void GroupClientsByProfession(Queries service)
+// Метод для группировки клиентов по профессии
+void GroupClientsByProfession(Queries queries)
 {
     Console.Clear();
     Console.Write("Введите максимальное количество клиентов на профессию: ");
@@ -122,7 +126,7 @@ void GroupClientsByProfession(Queries service)
         return;
     }
 
-    var professionGroups = service.GroupClientsByProfession(recordsNumber);
+    var professionGroups = queries.GroupClientsByProfession(recordsNumber);
 
     Console.WriteLine("Группировка клиентов по профессии:");
     foreach (dynamic group in professionGroups)
@@ -144,8 +148,8 @@ void GroupClientsByProfession(Queries service)
     Console.ReadKey();
 }
 
-
-void ShowClientServices(Queries service)
+// Метод для показа услуг клиентов
+void ShowClientServices(Queries queries)
 {
     Console.Clear();
     Console.Write("Введите количество услуг для показа: ");
@@ -155,7 +159,7 @@ void ShowClientServices(Queries service)
         return;
     }
 
-    var clientServices = service.GetClientServices(recordsNumber);
+    var clientServices = queries.GetClientServices(recordsNumber);
 
     Console.WriteLine("Услуги клиентов:");
     foreach (dynamic clientService in clientServices.ToList())
@@ -171,7 +175,8 @@ void ShowClientServices(Queries service)
     Console.ReadKey();
 }
 
-void FilterClientsByNationality(Queries service)
+// Метод для фильтрации клиентов по национальности
+void FilterClientsByNationality(Queries queries)
 {
     Console.Clear();
     Console.Write("Введите название национальности для фильтрации (например, Русский): ");
@@ -192,7 +197,7 @@ void FilterClientsByNationality(Queries service)
         return;
     }
 
-    var filteredClients = service.FilterClientsByNationality(nationalityFilter, recordsNumber);
+    var filteredClients = queries.FilterClientsByNationality(nationalityFilter, recordsNumber);
 
     Console.WriteLine("Фильтрованные клиенты:");
     foreach (dynamic client in filteredClients)
@@ -207,7 +212,8 @@ void FilterClientsByNationality(Queries service)
     Console.ReadKey();
 }
 
-void AddNewClient(Queries service)
+// Метод для добавления нового клиента
+void AddNewClient(Queries queries)
 {
     Console.Clear();
 
@@ -271,14 +277,15 @@ void AddNewClient(Queries service)
         ZodiacSignId = zodiacSignId
     };
 
-    service.AddClient(newClient);
+    queries.AddClient(newClient);
 
     Console.WriteLine("Клиент успешно добавлен!");
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
 
-void AddNewService(Queries service)
+// Метод для добавления новой услуги
+void AddNewService(Queries queries)
 {
     Console.Clear();
     Console.Write("Введите ID клиента, для которого добавляется услуга: ");
@@ -317,13 +324,14 @@ void AddNewService(Queries service)
         Cost = cost
     };
 
-    service.AddService(newService);
+    queries.AddService(newService);
 
     Console.WriteLine("Услуга успешно добавлена!");
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
 
+// Метод для удаления клиента по имени
 void DeleteClientByName(Queries service)
 {
     Console.Clear();
@@ -340,39 +348,87 @@ void DeleteClientByName(Queries service)
         return;
     }
 
-    service.DeleteClient(firstName, lastName);
-    Console.WriteLine("Клиент успешно удален!");
+    // Удаляем клиента и получаем его данные перед удалением
+    var deletedClient = service.DeleteClient(firstName, lastName);
+
+    // Проверяем, был ли клиент удален и выводим информацию о нем
+    if (deletedClient != null)
+    {
+        Console.WriteLine("Клиент успешно удален!");
+        Console.WriteLine("Детали удаленного клиента:");
+        PrintClientDetails(new List<Client> { deletedClient }.AsQueryable()); // Выводим детали удаленного клиента
+    }
+    else
+    {
+        Console.WriteLine("Клиент не найден.");
+    }
+
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
 
-
-void DeleteService(Queries service)
+// Метод для удаления услуги
+void DeleteService(Queries queries)
 {
     Console.Clear();
     Console.Write("Введите ID услуги для удаления: ");
+
     if (!int.TryParse(Console.ReadLine(), out var serviceId))
     {
         Console.WriteLine("Некорректный ID услуги.");
+        Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
+        Console.ReadKey();
         return;
     }
 
-    service.DeleteService(serviceId);
-    Console.WriteLine("Услуга успешно удалена!");
+    // Удаляем услугу и получаем ее данные перед удалением
+    var deletedService = queries.DeleteService(serviceId);
+
+    // Проверяем, была ли услуга удалена и выводим информацию о ней
+    if (deletedService != null)
+    {
+        Console.WriteLine("Услуга успешно удалена!");
+        PrintServiceDetails(deletedService); // Выводим детали удаленной услуги
+    }
+    else
+    {
+        Console.WriteLine("Услуга не найдена.");
+    }
+
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
 
-void UpdateClientRecords(Queries service)
+// Метод для обновления записей клиентов
+void UpdateClientRecords(Queries queries)
 {
     Console.Clear();
-    service.UpdateClientRecords();
+    Console.Write("Введите порог возраста для обновления записей клиентов: ");
+    int ageThreshold;
 
-    Console.WriteLine("Записи клиентов успешно обновлены!");
+    // Проверяем, корректно ли введён возраст
+    while (!int.TryParse(Console.ReadLine(), out ageThreshold))
+    {
+        Console.WriteLine("Пожалуйста, введите корректное целое число.");
+    }
+    // Сохраняем старые данные для последующего отображения
+    var updatedClients = queries.UpdateClientRecords(ageThreshold); // Передаём порог возраста и получаем обновленные записи
+
+    if (updatedClients.Any())
+    {
+        Console.WriteLine("Записи клиентов успешно обновлены! Вот изменения:");
+        PrintClientDetails(updatedClients);
+    }
+    else
+    {
+        Console.WriteLine("Не найдено клиентов для обновления с заданным порогом возраста.");
+    }
+
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
 
+// Метод для вывода информации о клиентах
 void PrintClientDetails(IQueryable<Client> clients)
 {
     foreach (var client in clients.ToList())
@@ -388,4 +444,17 @@ void PrintClientDetails(IQueryable<Client> clients)
         Console.WriteLine($"ID знака зодиака: {client.ZodiacSignId}");
         Console.WriteLine();
     }
+}
+
+// Метод для отображения услуги
+void PrintServiceDetails(Service service)
+{
+    Console.WriteLine("Детали услуги:");
+    Console.WriteLine($"ID услуги: {service.ServiceId}");
+    Console.WriteLine($"Название дополнительной услуги: {service.AdditionalService.Name}"); // Выводим название
+    Console.WriteLine($"ID клиента: {service.ClientId}");
+    Console.WriteLine($"ID сотрудника: {service.EmployeeId}");
+    Console.WriteLine($"Дата: {service.Date.ToShortDateString()}");
+    Console.WriteLine($"Цена: {service.Cost}");
+    Console.WriteLine();
 }

@@ -1,24 +1,41 @@
-﻿using System;
-using System.Linq;
-using EFCoreLINQ.Data;
+﻿using EFCoreLINQ.Data;
 using EFCoreLINQ.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreLINQ.Queries
 {
+    /// <summary>
+    /// Класс для выполнения запросов к базе данных агентства по браку.
+    /// </summary>
     public class Queries
     {
         private readonly MarriageAgencyContext _context;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Queries"/> с указанным контекстом базы данных.
+        /// </summary>
+        /// <param name="context">Контекст базы данных.</param>
         public Queries(MarriageAgencyContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Получает всех клиентов с ограничением на количество записей.
+        /// </summary>
+        /// <param name="recordsNumber">Максимальное количество записей для выборки.</param>
+        /// <returns>Запрос, содержащий всех клиентов.</returns>
         public IQueryable<Client> GetAllClients(int recordsNumber)
         {
             return _context.Clients.Take(recordsNumber);
         }
 
+        /// <summary>
+        /// Фильтрует клиентов по профессии с ограничением на количество записей.
+        /// </summary>
+        /// <param name="profession">Профессия для фильтрации.</param>
+        /// <param name="recordsNumber">Максимальное количество записей для выборки.</param>
+        /// <returns>Запрос, содержащий отфильтрованных клиентов.</returns>
         public IQueryable<Client> FilterClientsByProfession(string profession, int recordsNumber)
         {
             return _context.Clients
@@ -26,6 +43,11 @@ namespace EFCoreLINQ.Queries
                 .Take(recordsNumber);
         }
 
+        /// <summary>
+        /// Группирует клиентов по профессии с расчетом статистики по росту.
+        /// </summary>
+        /// <param name="recordsNumber">Максимальное количество клиентов для выборки.</param>
+        /// <returns>Запрос, содержащий группы клиентов и статистику по росту.</returns>
         public IQueryable<object> GroupClientsByProfession(int recordsNumber)
         {
             return _context.Clients
@@ -34,14 +56,18 @@ namespace EFCoreLINQ.Queries
                 {
                     Profession = g.Key,
                     ClientsCount = g.Count(),
-                    MinHeight = g.Min(c => c.PhysicalAttribute != null ? c.PhysicalAttribute.Height : (decimal?)null), // Минимальный рост
-                    MaxHeight = g.Max(c => c.PhysicalAttribute != null ? c.PhysicalAttribute.Height : (decimal?)null), // Максимальный рост
-                    AvgHeight = g.Average(c => c.PhysicalAttribute != null ? c.PhysicalAttribute.Height : (decimal?)null), // Средний рост
-                    Clients = g.Take(recordsNumber).ToList()
+                    MinHeight = g.Min(c => c.PhysicalAttribute.Height),
+                    MaxHeight = g.Max(c => c.PhysicalAttribute.Height),
+                    AvgHeight = g.Average(c => c.PhysicalAttribute.Height),
+                    Clients = g.Take(recordsNumber).ToList() // Выбираем только recordsNumber клиентов
                 });
         }
 
-
+        /// <summary>
+        /// Получает услуги клиентов с ограничением на количество записей.
+        /// </summary>
+        /// <param name="recordsNumber">Максимальное количество записей для выборки.</param>
+        /// <returns>Запрос, содержащий услуги клиентов.</returns>
         public IQueryable<object> GetClientServices(int recordsNumber)
         {
             return (from service in _context.Services
@@ -56,6 +82,12 @@ namespace EFCoreLINQ.Queries
                     }).Take(recordsNumber);
         }
 
+        /// <summary>
+        /// Фильтрует клиентов по национальности с ограничением на количество записей.
+        /// </summary>
+        /// <param name="nationality">Название национальности для фильтрации.</param>
+        /// <param name="recordsNumber">Максимальное количество записей для выборки.</param>
+        /// <returns>Запрос, содержащий отфильтрованных клиентов.</returns>
         public IQueryable<object> FilterClientsByNationality(string nationality, int recordsNumber)
         {
             return (from client in _context.Clients
@@ -70,57 +102,90 @@ namespace EFCoreLINQ.Queries
                     }).Take(recordsNumber);
         }
 
+        /// <summary>
+        /// Добавляет нового клиента в базу данных.
+        /// </summary>
+        /// <param name="client">Клиент для добавления.</param>
         public void AddClient(Client client)
         {
             _context.Clients.Add(client);
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Добавляет новую услугу в базу данных.
+        /// </summary>
+        /// <param name="service">Услуга для добавления.</param>
         public void AddService(Service service)
         {
             _context.Services.Add(service);
             _context.SaveChanges();
         }
 
-        public void DeleteClient(string firstName, string lastName)
+        /// <summary>
+        /// Удаляет клиента по имени и фамилии.
+        /// </summary>
+        /// <param name="firstName">Имя клиента.</param>
+        /// <param name="lastName">Фамилия клиента.</param>
+        /// <returns>Удаленный клиент или null, если клиент не найден.</returns>
+        public Client DeleteClient(string firstName, string lastName)
         {
             var client = _context.Clients
-                .FirstOrDefault(c => c.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase)
-                                  && c.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName); // Простой поиск по имени и фамилии
 
             if (client != null)
             {
-                _context.Clients.Remove(client);
-                _context.SaveChanges();
+                _context.Clients.Remove(client); // Если клиент найден, удаляем
+                _context.SaveChanges(); // Сохраняем изменения
             }
+
+            return client; // Возвращаем удаленного клиента или null, если не найден
         }
 
-        public void DeleteService(int serviceId)
+        /// <summary>
+        /// Удаляет услугу по идентификатору.
+        /// </summary>
+        /// <param name="serviceId">Идентификатор услуги.</param>
+        /// <returns>Удаленная услуга или null, если услуга не найдена.</returns>
+        public Service DeleteService(int serviceId)
         {
-            var service = _context.Services.Find(serviceId);
+            var service = _context.Services
+                .Include(s => s.AdditionalService) // Загружаем дополнительную услугу
+                .FirstOrDefault(s => s.ServiceId == serviceId); // Находим услугу по ID
+
             if (service != null)
             {
-                _context.Services.Remove(service);
-                _context.SaveChanges();
+                _context.Services.Remove(service); // Если услуга найдена, удаляем
+                _context.SaveChanges(); // Сохраняем изменения
             }
+
+            return service; // Возвращаем удаленную услугу или null, если не найдена
         }
 
-        public void UpdateClientRecords()
+        /// <summary>
+        /// Обновляет записи клиентов, удовлетворяющих заданному порогу возраста.
+        /// </summary>
+        /// <param name="ageThreshold">Порог возраста для обновления.</param>
+        /// <returns>Запрос с обновленными записями клиентов.</returns>
+        public IQueryable<Client> UpdateClientRecords(int ageThreshold)
         {
-            const int ageThreshold = 30;
+            // Получаем клиентов, удовлетворяющих условию
+            var clientsToUpdate = _context.Clients
+                .Where(c => c.PhysicalAttribute.Age > ageThreshold)
+                .ToList(); // Загружаем в память
 
-            var clientsToUpdate = from client in _context.Clients
-                                  join attr in _context.PhysicalAttributes
-                                  on client.ClientId equals attr.ClientId
-                                  where attr.Age > ageThreshold
-                                  select client;
-
-            foreach (var client in clientsToUpdate.ToList())
+            // Обновляем записи
+            foreach (var client in clientsToUpdate)
             {
-                client.Profession = "Обновленная профессия";
+                // Здесь вы можете вносить изменения в поля клиента
+                client.Profession = "Обновленная профессия"; // Пример обновления
             }
 
+            // Сохраняем изменения в базе данных
             _context.SaveChanges();
+
+            // Возвращаем обновленные записи
+            return _context.Clients.Where(c => c.PhysicalAttribute.Age > ageThreshold);
         }
     }
 }
