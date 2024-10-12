@@ -177,7 +177,6 @@ namespace EFCoreLINQ.Queries
             // Обновляем записи
             foreach (var client in clientsToUpdate)
             {
-                // Здесь вы можете вносить изменения в поля клиента
                 client.Profession = "Обновленная профессия"; // Пример обновления
             }
 

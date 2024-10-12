@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EFCoreLINQ.Models;
+﻿namespace EFCoreLINQ.Models;
 
 public partial class Photo
 {

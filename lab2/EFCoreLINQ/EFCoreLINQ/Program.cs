@@ -2,6 +2,7 @@
 using EFCoreLINQ.Data;
 using EFCoreLINQ.Models;
 using EFCoreLINQ.Queries;
+using Microsoft.EntityFrameworkCore;
 
 using var context = new MarriageAgencyContext();
 var queries = new Queries(context);
@@ -288,6 +289,8 @@ void AddNewClient(Queries queries)
 void AddNewService(Queries queries)
 {
     Console.Clear();
+
+    // Ввод ID клиента
     Console.Write("Введите ID клиента, для которого добавляется услуга: ");
     if (!int.TryParse(Console.ReadLine(), out var clientId))
     {
@@ -295,6 +298,7 @@ void AddNewService(Queries queries)
         return;
     }
 
+    // Ввод ID дополнительной услуги
     Console.Write("Введите ID дополнительной услуги: ");
     if (!int.TryParse(Console.ReadLine(), out var additionalServiceId))
     {
@@ -302,6 +306,7 @@ void AddNewService(Queries queries)
         return;
     }
 
+    // Ввод даты услуги
     Console.Write("Введите дату услуги (в формате YYYY-MM-DD): ");
     if (!DateOnly.TryParse(Console.ReadLine(), out var date))
     {
@@ -309,6 +314,7 @@ void AddNewService(Queries queries)
         return;
     }
 
+    // Ввод стоимости услуги
     Console.Write("Введите стоимость услуги: ");
     if (!decimal.TryParse(Console.ReadLine(), out var cost))
     {
@@ -316,20 +322,41 @@ void AddNewService(Queries queries)
         return;
     }
 
+    // Ввод ID сотрудника (по желанию)
+    Console.Write("Введите ID сотрудника (или оставьте пустым, если не требуется): ");
+    string employeeInput = Console.ReadLine();
+    int employeeId = 0;
+    if (!string.IsNullOrWhiteSpace(employeeInput) && !int.TryParse(employeeInput, out employeeId))
+    {
+        Console.WriteLine("Некорректный ID сотрудника.");
+        return;
+    }
+
+    // Создание нового объекта Service
     var newService = new Service
     {
         ClientId = clientId,
         AdditionalServiceId = additionalServiceId,
+        EmployeeId = employeeId, // Можно оставить 0, если не требуется
         Date = date,
         Cost = cost
     };
 
-    queries.AddService(newService);
+    try
+    {
+        queries.AddService(newService);
+        Console.WriteLine("Услуга успешно добавлена!");
+    }
+    catch (DbUpdateException ex)
+    {
+        Console.WriteLine("Ошибка при добавлении услуги. Проверьте, что все введенные данные корректны и существуют в базе данных.");
+        Console.WriteLine($"Подробности: {ex.InnerException?.Message}");
+    }
 
-    Console.WriteLine("Услуга успешно добавлена!");
     Console.WriteLine("Нажмите любую клавишу для возврата в меню.");
     Console.ReadKey();
 }
+
 
 // Метод для удаления клиента по имени
 void DeleteClientByName(Queries service)
