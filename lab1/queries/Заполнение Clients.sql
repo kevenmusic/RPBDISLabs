@@ -78,7 +78,7 @@ BEGIN
     BEGIN
         -- Мужской клиент
         SELECT TOP 1 @MaleName = Name FROM #MaleNames ORDER BY NEWID();
-        SELECT TOP 1 @LastName = LastName FROM #LastNames ORDER BY NEWID();ы
+        SELECT TOP 1 @LastName = LastName FROM #LastNames ORDER BY NEWID();
         SELECT TOP 1 @MalePatronymic = Patronymic FROM #MalePatronymics ORDER BY NEWID();
 
         INSERT INTO Clients (FirstName, LastName, MiddleName, Gender, BirthDate, ZodiacSignID, NationalityID, Profession)

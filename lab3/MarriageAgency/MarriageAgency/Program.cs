@@ -28,7 +28,7 @@ namespace MarriageAgency
 
             // добавление поддержки сессии
             services.AddDistributedMemoryCache();
-            services.AddSession();
+            services.AddSession(); 
 
             // внедрение зависимостей
             services.AddScoped<ICachedClientsService, CachedClientsService>();
@@ -47,7 +47,7 @@ namespace MarriageAgency
             // добавляем поддержку статических файлов
             app.UseStaticFiles();
 
-            // добавляем поддержку сессий
+            // добавляем middleware для работы с сессиями
             app.UseSession();
 
             // добавляем собственный компонент middleware по инициализации базы данных и производим ее инициализацию
@@ -291,12 +291,20 @@ namespace MarriageAgency
             {
                 appBuilder.Run(async (context) =>
                 {
-                    string employeeName;
-                    if (context.Session.Keys.Contains("employeeName"))
+                    string employeeName = string.Empty;
+
+                    // Проверяем, передано ли значение employeeName в запросе
+                    if (!string.IsNullOrEmpty(context.Request.Query["employeeName"]))
                     {
-                        employeeName = context.Session.Get<string>("employeeName");
+                        employeeName = context.Request.Query["employeeName"];
+                        // Сохраняем employeeName в сессии
+                        context.Session.SetString("employeeName", employeeName);
                     }
-                    employeeName = Convert.ToString(context.Request.Query["employeeName"]);
+                    // Если employeeName уже сохранено в сессии, извлекаем его
+                    else if (context.Session.Keys.Contains("employeeName"))
+                    {
+                        employeeName = context.Session.GetString("employeeName");
+                    }
                     // Получение сервисов кэша для сотрудников, национальностей и других данных, если необходимо
                     ICachedEmployeesService cachedEmployeesService = context.RequestServices.GetService<ICachedEmployeesService>();
                     IEnumerable<Employee> employees = cachedEmployeesService.GetEmployees(30);
@@ -438,7 +446,7 @@ namespace MarriageAgency
                 appBuilder.Run(async (context) =>
                 {
                     string clientName;
-                    context.Request.Cookies.TryGetValue("employeeName", out clientName);
+                    context.Request.Cookies.TryGetValue("clientName", out clientName);
                     ICachedNationalitiesService cachedNationalitiesService = context.RequestServices.GetService<ICachedNationalitiesService>();
                     cachedNationalitiesService.AddNationalities("Nationalities20", 1000);
                     ICachedZodiacSignsService zodiacSignService = context.RequestServices.GetService<ICachedZodiacSignsService>();
@@ -448,7 +456,7 @@ namespace MarriageAgency
                     string HtmlString = "<HTML><HEAD><TITLE>Клиенты</TITLE></HEAD>" +
                     "<META http-equiv='Content-Type' content='text/html; charset=utf-8'/>" +
                     "<BODY><H1>Список клиентов по имени</H1>" +
-                    "<BODY><FORM action ='/searchClients' / >" +
+                    "<BODY><FORM action ='/searchClients' method='GET'>" +
                     "Имя:<BR><INPUT type = 'text' name = 'clientName' value = " + clientName + ">" +
                     "<BR><BR><INPUT type ='submit' value='Сохранить в cookies и вывести клиентов с заданным именем'></FORM>" +
                     "<TABLE BORDER=1>";
@@ -465,11 +473,11 @@ namespace MarriageAgency
                     HtmlString += "</TR>";
 
                     clientName = context.Request.Query["clientName"];
-                    if (clientName != null)
+                    if (!string.IsNullOrEmpty(clientName))
                     {
                         context.Response.Cookies.Append("clientName", clientName);
                     }
-                    foreach (var client in clients.Where(e => e.FirstName.Trim() == clientName))
+                    foreach (var client in clients.Where(e => e.FirstName.Trim().ToLower() == clientName?.ToLower()))
                     {
                         HtmlString += "<TR>";
                         HtmlString += "<TD>" + client.ClientId + "</TD>";
