@@ -1,0 +1,87 @@
+﻿@model MarriageAgency.ViewModels.ServicesViewModel
+
+@{
+    ViewData["Title"] = "Услуги";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Услуги</h2>
+
+<!-- Форма поиска с фильтрацией по имени клиента, дате и стоимости -->
+@using (Html.BeginForm("Index", "Services", FormMethod.Get))
+{
+    <fieldset>
+        <legend>Поиск</legend>
+        <div>
+            <label for="clientsSearch">Имя клиента:</label>
+            @Html.TextBox("clientsSearch", Model.ServiceViewModel.Client, new { @class = "form-control" })
+        </div>
+        <div>
+            <label for="employeesSearch">Имя сотрудника:</label>
+            @Html.TextBox("employeesSearch", Model.ServiceViewModel.Employee, new { @class = "form-control" })
+        </div>
+        <div>
+            <label for="minCost">Минимальная стоимость:</label>
+            @Html.TextBox("minCost", Model.ServiceViewModel.SortViewModel.CurrentState, new { @class = "form-control", type = "number", step = "0.01" })
+        </div>
+        <div>
+            <label for="maxCost">Максимальная стоимость:</label>
+            @Html.TextBox("maxCost", Model.ServiceViewModel.SortViewModel.CurrentState, new { @class = "form-control", type = "number", step = "0.01" })
+        </div>
+        <div>
+            <label for="startDate">Дата начала:</label>
+            @Html.TextBox("startDate", Model.ServiceViewModel.SortViewModel.CurrentState, new { @class = "form-control", type = "date" })
+        </div>
+        <div>
+            <label for="endDate">Дата окончания:</label>
+            @Html.TextBox("endDate", Model.ServiceViewModel.SortViewModel.CurrentState, new { @class = "form-control", type = "date" })
+        </div>
+        <input type="submit" value="Найти" class="btn btn-primary" />
+    </fieldset>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceViewModel.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceViewModel.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceViewModel.Client.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceViewModel.Employee.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceViewModel.AdditionalService.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model.Services)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => service.Date)</td>
+                <td>@Html.DisplayFor(modelItem => service.Cost)</td>
+                <td>@Html.DisplayFor(modelItem => service.Client.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => service.Employee.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => service.AdditionalService.Name)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    Страница @Model.PageViewModel.PageNumber из @Model.PageViewModel.TotalPages
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Предыдущая</a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">Следующая</a>
+    }
+</div>
