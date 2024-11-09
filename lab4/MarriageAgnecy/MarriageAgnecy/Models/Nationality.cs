@@ -7,7 +7,7 @@ namespace MarriageAgency.Models
         [Display(Name = "Код национальности")]
         public int NationalityId { get; set; }
 
-        [Display(Name = "Название национальности")]
+        [Display(Name = "Национальность")]
         public string Name { get; set; } = null!;
 
         [Display(Name = "Примечания")]

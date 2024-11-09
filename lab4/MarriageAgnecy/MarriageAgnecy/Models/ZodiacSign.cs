@@ -7,7 +7,7 @@ namespace MarriageAgency.Models
         [Display(Name = "Код знака зодиака")]
         public int ZodiacSignId { get; set; }
 
-        [Display(Name = "Название знака")]
+        [Display(Name = "Знак зодиака")]
         public string Name { get; set; } = null!;
 
         [Display(Name = "Описание")]
