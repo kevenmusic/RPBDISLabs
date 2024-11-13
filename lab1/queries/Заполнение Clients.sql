@@ -1,3 +1,5 @@
+use MarriageAgencyDB
+
 -- Создание временных таблиц для имен, фамилий, отчеств и профессий
 CREATE TABLE #MaleNames (Name NVARCHAR(50));
 CREATE TABLE #FemaleNames (Name NVARCHAR(50));
@@ -40,7 +42,7 @@ INSERT INTO #Professions (Profession) VALUES
 ('Архитектор'), ('Журналист'), ('Полицейский'), ('Психолог'), ('Слесарь'),
 ('Электрик'), ('Повар'), ('Шеф-повар'), ('Водитель'), ('Флорист');
 
--- Заполнение таблицы Клиенты с разнообразными именами, фамилиями и профессиями
+-- Заполнение таблицы Клиенты с разнообразными именами, фамилиями, профессиями и фото
 DECLARE @i INT = 1;
 DECLARE @MaleName NVARCHAR(50);
 DECLARE @FemaleName NVARCHAR(50);
@@ -49,11 +51,16 @@ DECLARE @FemaleLastName NVARCHAR(50);
 DECLARE @MalePatronymic NVARCHAR(50);
 DECLARE @FemalePatronymic NVARCHAR(50);
 DECLARE @Profession NVARCHAR(100);
+DECLARE @ClientPhoto NVARCHAR(255);
 
 WHILE @i <= 500
 BEGIN
     -- Случайная профессия
     SELECT TOP 1 @Profession = Profession FROM #Professions ORDER BY NEWID();
+
+    -- Случайное фото (для примера используются ссылки на изображения)
+    SET @ClientPhoto = CONCAT('images/', FLOOR(RAND() * 5) + 1, '.png');
+
 
     IF @i % 2 = 0
     BEGIN
@@ -62,7 +69,7 @@ BEGIN
         SELECT TOP 1 @FemaleLastName = FemaleLastName FROM #FemaleLastNames ORDER BY NEWID();
         SELECT TOP 1 @FemalePatronymic = Patronymic FROM #FemalePatronymics ORDER BY NEWID();
 
-        INSERT INTO Clients (FirstName, LastName, MiddleName, Gender, BirthDate, ZodiacSignID, NationalityID, Profession)
+        INSERT INTO Clients (FirstName, LastName, MiddleName, Gender, BirthDate, ZodiacSignID, NationalityID, Profession, ClientPhoto)
         VALUES (
             @FemaleName, 
             @FemaleLastName, 
@@ -71,7 +78,8 @@ BEGIN
             DATEADD(YEAR, -FLOOR(RAND() * 50) - 18, GETDATE()),  -- Возраст от 18 до 67 лет
             FLOOR(RAND() * 12) + 1,  -- Случайный знак зодиака
             FLOOR(RAND() * 10) + 1,  -- Случайная национальность
-            @Profession  -- Случайная профессия
+            @Profession,  -- Случайная профессия
+            @ClientPhoto  -- Случайное фото
         );
     END
     ELSE
@@ -81,7 +89,7 @@ BEGIN
         SELECT TOP 1 @LastName = LastName FROM #LastNames ORDER BY NEWID();
         SELECT TOP 1 @MalePatronymic = Patronymic FROM #MalePatronymics ORDER BY NEWID();
 
-        INSERT INTO Clients (FirstName, LastName, MiddleName, Gender, BirthDate, ZodiacSignID, NationalityID, Profession)
+        INSERT INTO Clients (FirstName, LastName, MiddleName, Gender, BirthDate, ZodiacSignID, NationalityID, Profession, ClientPhoto)
         VALUES (
             @MaleName, 
             @LastName, 
@@ -90,7 +98,8 @@ BEGIN
             DATEADD(YEAR, -FLOOR(RAND() * 50) - 18, GETDATE()),  -- Возраст от 18 до 67 лет
             FLOOR(RAND() * 12) + 1,  -- Случайный знак зодиака
             FLOOR(RAND() * 10) + 1,  -- Случайная национальность
-            @Profession  -- Случайная профессия
+            @Profession,  -- Случайная профессия
+            @ClientPhoto  -- Случайное фото
         );
     END;
 
@@ -105,3 +114,4 @@ DROP TABLE #LastNames;
 DROP TABLE #FemaleLastNames;
 DROP TABLE #MalePatronymics;
 DROP TABLE #FemalePatronymics;
+

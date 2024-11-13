@@ -1,3 +1,4 @@
+use MarriageAgencyDB
 -- Заполнение таблицы Знаки зодиака
 INSERT INTO ZodiacSigns (Name, Description) VALUES
 ('Овен', 'Энергичный и уверенный в себе'),
