@@ -28,7 +28,10 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Install dependencies
-      run: dotnet restore lab2/EFCoreLINQ/EFCoreLINQ/EFCoreLINQ.csproj
+      run: dotnet restore lab5/MarriageAgency/MarriageAgency/MarriageAgency.csproj
 
     - name: Build
-      run: dotnet build lab2/EFCoreLINQ/EFCoreLINQ/EFCoreLINQ.csproj --configuration Release --no-restore
+      run: dotnet build lab5/MarriageAgency/MarriageAgency/MarriageAgency.csproj --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test lab5/MarriageAgency/Tests/Tests.csproj --no-restore --verbosity normal
