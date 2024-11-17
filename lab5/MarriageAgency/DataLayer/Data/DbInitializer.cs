@@ -34,23 +34,37 @@ namespace MarriageAgency.DataLayer.Data
             }
             db.SaveChanges();
 
-            // Массивы имен и отчеств
-            string[] firstNames = { "Иван", "Мария", "Алексей", "Ольга", "Дмитрий" };
-            string[] lastNames = { "Иванов", "Петров", "Сидоров", "Кузнецов", "Новиков" };
-            string[] middleNames = { "Иванович", "Петрович", "Сергеевич", "Александрович", "Владимирович", "Дмитриевич", "Максимович" };
+            // Массивы имен, фамилий и отчеств для мужчин и женщин
+            string[] maleFirstNames = { "Иван", "Алексей", "Дмитрий", "Сергей", "Максим" };
+            string[] femaleFirstNames = { "Мария", "Ольга", "Анна", "Екатерина", "Виктория" };
+            string[] maleLastNames = { "Иванов", "Петров", "Сидоров", "Кузнецов", "Новиков" };
+            string[] femaleLastNames = { "Иванова", "Петрова", "Сидорова", "Кузнецова", "Новикова" };
+            string[] maleMiddleNames = { "Иванович", "Петрович", "Сергеевич", "Александрович", "Владимирович" };
+            string[] femaleMiddleNames = { "Ивановна", "Петровна", "Сергеевна", "Александровна", "Владимировна" };
 
             // Вставка данных для Клиентов
             for (int i = 0; i < 50; i++)
             {
+                // Генерация пола
+                bool isMale = rand.Next(2) == 0;
+
+                // Выбор имен, фамилий и отчеств в зависимости от пола
+                var firstName = isMale ? maleFirstNames[rand.Next(maleFirstNames.Length)] : femaleFirstNames[rand.Next(femaleFirstNames.Length)];
+                var lastName = isMale ? maleLastNames[rand.Next(maleLastNames.Length)] : femaleLastNames[rand.Next(femaleLastNames.Length)];
+                var middleName = isMale ? maleMiddleNames[rand.Next(maleMiddleNames.Length)] : femaleMiddleNames[rand.Next(femaleMiddleNames.Length)];
+
+                var gender = isMale ? "Мужской" : "Женский";
+
+                // Генерация данных для клиента
                 var zodiacSignId = rand.Next(1, zodiacSigns.Length + 1);
                 var nationalityId = rand.Next(1, nationalities.Length + 1);
 
                 var client = new Client
                 {
-                    FirstName = firstNames[rand.Next(firstNames.Length)],
-                    LastName = lastNames[rand.Next(lastNames.Length)],
-                    MiddleName = middleNames[rand.Next(middleNames.Length)], // Отчество
-                    Gender = rand.Next(2) == 0 ? "Мужской" : "Женский",
+                    FirstName = firstName,
+                    LastName = lastName,
+                    MiddleName = middleName, // Отчество
+                    Gender = gender,
                     BirthDate = DateOnly.FromDateTime(DateTime.Today.AddYears(-rand.Next(18, 60))),
                     ZodiacSignId = zodiacSignId,
                     NationalityId = nationalityId,
@@ -93,9 +107,9 @@ namespace MarriageAgency.DataLayer.Data
             {
                 db.Employees.Add(new Employee
                 {
-                    FirstName = firstNames[rand.Next(firstNames.Length)],
-                    LastName = lastNames[rand.Next(lastNames.Length)],
-                    MiddleName = middleNames[rand.Next(middleNames.Length)],
+                    FirstName = maleFirstNames[rand.Next(maleFirstNames.Length)],
+                    LastName = maleLastNames[rand.Next(maleLastNames.Length)],
+                    MiddleName = maleMiddleNames[rand.Next(maleMiddleNames.Length)],
                     Position = employeePositions[rand.Next(employeePositions.Length)],
                     BirthDate = DateOnly.FromDateTime(DateTime.Today.AddYears(-rand.Next(25, 60)))
                 });

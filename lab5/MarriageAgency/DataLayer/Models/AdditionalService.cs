@@ -7,7 +7,7 @@ namespace MarriageAgency.DataLayer.Models
         [Display(Name = "Дополнительная услуга")]
         public int AdditionalServiceId { get; set; }
 
-        [Display(Name = "Название услуги")]
+        [Display(Name = "Название дополнительной услуги")]
         public string Name { get; set; } = null!;
 
         [Display(Name = "Описание услуги")]

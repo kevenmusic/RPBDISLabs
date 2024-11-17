@@ -1,9 +1,5 @@
 ﻿using MarriageAgency.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
 
 namespace MarriageAgency.Data
 {
@@ -43,6 +39,3 @@ namespace MarriageAgency.Data
         }
     }
 }
-
-
-

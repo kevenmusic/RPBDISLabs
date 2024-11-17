@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Услуги</title>
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <link href="lib/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="lib/jquery-ui/jquery-ui.js"></script>
+    <script src="lib/jquery-ui/ui/i18n/datepicker-ru.js"></script>
+    <script>
+</script>
+</head>
+<body>
+    <div class="container">
+        <h2>Список услуг</h2>
+        <form name="serviceForm">
+            <label for="serviceId" id="CRUD" name="CRUD">Добавить:</label>
+            <input type="hidden" id="serviceId" name="serviceId" value=0 />
+            <div class="form-group">
+                <label Добавить>Клиент:</label>
+                <select id="clientId" name="clientId"></select>
+            </div>
+            <div class="form-group">
+                <label Добавить>Сотрудник:</label>
+                <select id="employeeId" name="employeeId"></select>
+            </div>
+            <div class="form-group">
+                <label Добавить>Дополнительная услуга:</label>
+                <select id="additionalServiceId" name="additionalServiceId"></select>
+            </div>
+            <div>
+                <a id="filter" class="btn btn-sm btn-primary">Загрузить</a>
+            </div>
+            <div class="form-group">
+                <label for="cost">Стоимость</label>
+                <input class="form-control" name="cost" id="cost" />
+            </div>
+            <div class="form-group">
+                <label for="date">Дата</label>
+                <input class="form-control" name="date" id="date" />
+            </div>
+            <div class="panel-body">
+                <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
+                <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
+            </div>
+        </form>
+
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Код Услуги</th>
+                    <th>Клиент</th>
+                    <th>Сотрудник</th>
+                    <th>Дополнительная услуга</th>
+                    <th>Стоимость</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody id="data"></tbody>
+        </table>
+    </div>
+
+    <script>
+
+        // Получение всех услуг
+        function GetServices() {
+            $.ajax({
+                url: '/api/services',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (services) {
+                    var rows = "";
+                    $.each(services, function (index, service) {
+                        // добавляем полученные элементы в таблицу
+                        rows += row(service);
+                    })
+                    $("table tbody#data").append(rows);
+                }
+            });
+        }
+
+        // Получение фильтрованных услуг
+        function GetFilteredServices() {
+            var form = document.forms["serviceForm"];
+            var clientId = form.elements["clientId"].selectedIndex;
+            var employeeId = form.elements["employeeId"].selectedIndex;
+            var additionalServiceId = form.elements["additionalServiceId"].selectedIndex;
+            $.ajax({
+                url: '/api/services/filteredservices?ClientId=' + clientId + '&EmployeeId=' + employeeId + '&AdditionalServiceId=' + additionalServiceId,
+                type: 'GET',
+                contentType: "application/json",
+                success: function (services) {
+                    var rows = "";
+                    $("table tbody#data").html("");
+                    $.each(services, function (index, service) {
+                        // добавляем полученные элементы в таблицу
+                        rows += row(service);
+                    })
+                    $("table tbody#data").append(rows);
+                }
+            });
+        }
+        // Получение одной услуги
+        function GetService(serviceId) {
+            $.ajax({
+                url: '/api/services/' + serviceId,
+                type: 'GET',
+                contentType: "application/json",
+                success: function (service) {
+                    var form = document.forms["serviceForm"];
+                    form.elements["serviceId"].value = service.serviceId;
+                    form.elements["clientId"].selectedIndex = service.clientId;
+                    form.elements["employeeId"].selectedIndex = service.employeeId;
+                    form.elements["additionalServiceId"].selectedIndex = service.additionalServiceId;
+                    form.elements["cost"].value = service.cost;
+                    form.elements["date"].value = service.date.substring(0, 10);
+                }
+            });
+        }
+
+        // Добавление услуги
+        function CreateService(clientId, employeeId, additionalServiceId, cost, date) {
+            $.ajax({
+                url: "api/services",
+                contentType: "application/json",
+                method: "POST",
+                data: JSON.stringify({
+                    clientId: clientId,
+                    employeeId: employeeId,
+                    additionalServiceId: additionalServiceId,
+                    cost: parseFloat(cost),
+                    date: date
+                }),
+                success: function (service) {
+                    reset();
+                    var form = document.forms["serviceForm"];
+                    service.clientName = form.elements["clientId"].options[clientId].text;
+                    service.employeeName = form.elements["employeeId"].options[employeeId].text;
+                    service.additionalServiceName = form.elements["additionalServiceId"].options[additionalServiceId].text;
+                    $("table tbody#data").append(row(service));
+                }
+            })
+        }
+
+        // Изменение услуги
+        function EditService(serviceId, clientId, employeeId, additionalServiceId, cost, date) {
+            $.ajax({
+                url: "api/services",
+                contentType: "application/json",
+                method: "PUT",
+                data: JSON.stringify({
+                    serviceId: parseInt(serviceId),
+                    clientId: clientId,
+                    employeeId: employeeId,
+                    additionalServiceId: additionalServiceId,
+                    cost: parseFloat(cost),
+                    date: date
+                }),
+                success: function (service) {
+                    reset();
+                    var form = document.forms["serviceForm"];
+                    service.clientName = form.elements["clientId"].options[clientId].text;
+                    service.employeeName = form.elements["employeeId"].options[employeeId].text;
+                    service.additionalServiceName = form.elements["additionalServiceId"].options[additionalServiceId].text;
+                    $("tr[data-rowid='" + service.serviceId + "']").replaceWith(row(service));
+                }
+            })
+        }
+
+        // сброс формы
+        function reset() {
+            var form = document.forms["serviceForm"];
+            form.reset();
+            form.elements["serviceId"].value = 0;
+            $("#typeCRUD").html("Добавить:");
+        }
+
+        // Удаление услуги
+        function DeleteService(serviceId) {
+            $.ajax({
+                url: "api/services/" + serviceId,
+                contentType: "application/json",
+                method: "DELETE",
+                success: function (service) {
+                    $("tr[data-rowid='" + service.serviceId + "']").remove();
+                }
+            })
+        }
+        // создание строки для таблицы
+        var row = function (service) {
+            return "<tr data-rowid='" + service.serviceId + "'><td>" + service.serviceId + "</td>" +
+                "<td>" + service.clientName + "</td>" +
+                "<td>" + service.employeeName + "</td>" +
+                "<td>" + service.additionalServiceName + "</td>" +
+                "<td>" + service.cost + "</td>" +
+                "<td>" + service.date.substring(0, 10) + "</td>" +
+                "<td><a class='editLink' data-id='" + service.serviceId + "'>Изменить</a> | " +
+                "<a class='removeLink' data-id='" + service.serviceId + "'>Удалить</a></td></tr>";
+        }
+
+        function GetEmployees() {
+            var listItems = "";
+            $.ajax({
+                url: '/api/services/employees',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (employees) {
+                    listItems = listItems + "<option value=0 selected>(выбор)</option>";
+                    $.each(employees, function (index, employee) {
+                        listItems = listItems + "<option value='" + employee.employeeId + "'>" + employee.firstName + "</option>";
+                    });
+                    $("#employeeId").html(listItems);
+                }
+            });
+        }
+
+        function GetClients() {
+            var listItems = "";
+            $.ajax({
+                url: '/api/services/clients',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (clients) {
+                    listItems = listItems + "<option value=0 selected>(выбор)</option>";
+                    $.each(clients, function (index, client) {
+                        listItems = listItems + "<option value='" + client.clientId + "'>" + client.firstName + "</option>";
+                    });
+                    $("#clientId").html(listItems);
+                }
+            });
+        }
+
+        function GetAdditionalServices() {
+            var listItems = "";
+            $.ajax({
+                url: '/api/services/additionalServices',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (additionalServices) {
+                    listItems = listItems + "<option value=0 selected>(выбор)</option>";
+                    $.each(additionalServices, function (index, additionalService) {
+                        listItems = listItems + "<option value='" + additionalService.additionalServiceId + "'>" + additionalService.name + "</option>";
+                    });
+                    $("#additionalServiceId").html(listItems);
+                }
+            });
+        }
+
+        // сброс значений формы
+        $("#reset").click(function (e) {
+            e.preventDefault();
+            reset();
+        })
+
+        // фильтрация
+        $("#filter").click(function (e) {
+            GetFilteredServices();
+        })
+
+        // отправка формы
+        $("form").submit(function (e) {
+
+            e.preventDefault();
+            var serviceId = this.elements["serviceId"].value;
+            var clientId = this.elements["clientId"].selectedIndex;
+            var employeeId = this.elements["employeeId"].selectedIndex;
+            var additionalServiceId = this.elements["additionalServiceId"].selectedIndex;
+            var cost = this.elements["cost"].value;
+            var date = this.elements["date"].value;
+            if (serviceId == 0)
+                CreateService(clientId, employeeId, additionalServiceId, cost, date);
+            else
+                EditService(serviceId, clientId, employeeId, additionalServiceId, cost, date);
+        });
+
+        // нажатие на ссылку Изменить
+        $("body").on("click", ".editLink", function () {
+            var id = $(this).data("id");
+            $("#typeCRUD").html("Изменить:");
+            GetService(id);
+        })
+        // нажатие на ссылку Удалить
+        $("body").on("click", ".removeLink", function () {
+            var id = $(this).data("id");
+            DeleteService(id);
+            reset();
+        })
+
+        // загрузка данных для таблицы и ее формирование
+        GetServices();
+        GetClients();
+        GetEmployees();
+        GetAdditionalServices();
+
+        //ввод даты с использованием специального окна
+        $(document).ready(function () {
+            $("#date").datepicker({ dateFormat: "yy-mm-dd" });
+        });
+
+    </script>
+</body>
+
+</html>
