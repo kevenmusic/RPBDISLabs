@@ -27,8 +27,11 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Install dependencies
+    - name: Install dependencies for main project
       run: dotnet restore lab5/MarriageAgency/MarriageAgency/MarriageAgency.csproj
+
+    - name: Install dependencies for test project
+      run: dotnet restore lab5/MarriageAgency/Tests/Tests.csproj
 
     - name: Build
       run: dotnet build lab5/MarriageAgency/MarriageAgency/MarriageAgency.csproj --configuration Release --no-restore
